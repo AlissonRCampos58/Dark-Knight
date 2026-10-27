@@ -9,7 +9,11 @@ Botón de ayuda
 Integrantes
 Personaje
 Logue
-Decoracion
+Funciones
+Personaje
+Enemigos
+Final de nivel
+Estadísticas de personaje
 
 Jose Membreño 00078226
 Controles
@@ -19,13 +23,4 @@ Combate
 Personaje
 Crafteo
 Decoracion
-
-Diego Esquivel 00244226
-Funciones
-Personaje
-Enemigos
-Reporte de estadisticas
-Estadisticas de personajes
-Decoracion
-Final de nivel
 
