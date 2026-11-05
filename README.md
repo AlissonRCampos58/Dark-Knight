@@ -7,7 +7,6 @@ Menú
 Submenús
 Botón de ayuda
 Integrantes
-Personaje
 Logue
 Funciones
 Personaje
@@ -20,7 +19,6 @@ Controles
 Inventario
 Exploracion
 Combate
-Personaje
 Crafteo
 Decoracion
 
