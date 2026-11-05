@@ -11,7 +11,3 @@ void menuPrincipal(){
     }
     cout<<"==============================="<<endl<<endl;
 }
-int main(){
-    menuPrincipal();
-    return 0;
-}
