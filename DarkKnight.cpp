@@ -27,4 +27,27 @@ void subMenu2(){
     }
     cout<<"==============================="<<endl<<endl;
 }
-
+void mostrarHistoria() {
+    cout << "=== LA LEYENDA DEL CABALLERO OSCURO ==="<<endl;
+    cout << "Bajo el reino de Ceniza, el Santuario guarda a los que"<<endl;
+    cout << "juraron no volver a ver la luz. Tu eras uno de ellos."<<endl;
+    cout << "Esta noche el sello se rompio y solo queda un camino:"<<endl;
+    cout << "atravesar el corredor, recuperar la llave y escapar."<<endl;
+    cout << "Cada alma que absorba te acerca a la salida... o a la condena."<<endl<<endl;
+    cout << "Presiona Enter..."<<endl;
+    cin.get();
+}
+void mostrarMural() {
+    ifstream archivo("mural.txt");
+    if (!archivo) { cout << "[Falta mural.txt]\n"; return; }
+    string linea;
+    cout << "\n";
+    while (getline(archivo, linea)) {   // while + archivo
+        cout << linea << "\n";
+    }
+}
+int main(){
+    mostrarHistoria();
+    mostrarMural();
+    return 0;
+}
