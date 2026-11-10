@@ -1,57 +1,37 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <windows.h>
-using namespace std;
+#ifndef JUEGO_H
+#define JUEGO_H
 
-void menuPrincipal(){
-    string nombres[] = {"Nueva Partida","Cargar partida","Opciones","Ayuda","Salir"};
-    cout<<"=========DARK KNIGHT==========="<<endl<<endl;
-    for( int i=0; i<5;i++){
-        cout<<"    "<<i+1<<"."<<nombres[i]<<"    "<<endl;
-    }
-    cout<<"==============================="<<endl<<endl;
-}
-void subMenu1(){
-    string nombres[] = {"Como jugar?","Controles","Objetivo","Salir"};
-    cout<<"============AYUDA=============="<<endl<<endl;
-    for( int i=0; i<4;i++){
-        cout<<"    "<<i+1<<"."<<nombres[i]<<"    "<<endl;
-    }
-    cout<<"==============================="<<endl<<endl;
-}
-void subMenu2(){
-    string nombres[] = {"Integrantes","Salir"};
-    cout<<"===========OPCIONES============"<<endl<<endl;
-    for( int i=0; i<2;i++){
-        cout<<"    "<<i+1<<"."<<nombres[i]<<"    "<<endl;
-    }
-    cout<<"==============================="<<endl<<endl;
-}
-void mostrarHistoria() {
-    cout<<"=== LA LEYENDA DEL CABALLERO OSCURO ==="<<endl;
-    cout<<"Bajo el reino de Ceniza, el Santuario guarda a los que"<<endl;
-    cout<<"juraron no volver a ver la luz. Tu eras uno de ellos."<<endl;
-    cout<<"Esta noche el sello se rompio y solo queda un camino:"<<endl;
-    cout<<"atravesar el corredor, recuperar la llave y escapar."<<endl;
-    cout<<"Cada alma que absorba te acerca a la salida... o a la condena."<<endl<<endl;
-    cout<<"Presiona Enter..."<<endl;
-    cin.get();
-}
-void mostrarMural() {
-    ifstream archivo("mural.txt");
-    string linea;
-    while (getline(archivo, linea)) {   // while + archivo
-        cout<<linea<<endl;
-    }
-    archivo.close();
-    cout<<"Presiona Enter para continuar..."<<endl;
-    cin.get();
-}
-  
-int main(){
-     SetConsoleOutputCP(CP_UTF8);
-    mostrarMural();
-    return 0;
-}
+#include "struct.h"
+
+void limpiar();
+void pausa();
+
+void mostrarHistoria();
+void mostrarcrow();
+void mostrarMural();
+
+void menuPrincipal();
+
+void cargarPartida(Partida &p);
+void guardarPartida(Partida p);
+
+void subMenu1();
+void subMenu2();
+
+void inicializarEnemigos(enemigo e[], int &n);
+void inicializarItems(Item it[], int &n);
+
+bool esMuro(int f, int c);
+int buscarEnemigo(enemigo e[], int n, int f, int c);
+
+void dibujarMapa(personaje j, enemigo e[], int nE, Item it[], int nI);
+void dibujarHUD(personaje j);
+
+void combate(personaje &j, enemigo &e);
+
+void moverpersonaje(char tecla,int &x,int &y);
+
+void jugar(Partida &p);
+void nuevoJuego(Partida &p);
     
+#endif
