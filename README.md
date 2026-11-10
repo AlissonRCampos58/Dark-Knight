@@ -9,8 +9,6 @@ Botón de ayuda
 Integrantes
 Logue
 Funciones
-Personaje
-Enemigos
 Final de nivel
 Estadísticas de personaje
 
@@ -19,6 +17,9 @@ Controles
 Inventario
 Exploracion
 Combate
-Crafteo
 Decoracion
+personaje principal
+funciones
+enemigos
+
 
