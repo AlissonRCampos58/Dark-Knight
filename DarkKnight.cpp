@@ -3,45 +3,69 @@
 #include <string>
 #include <windows.h>
 #include <cstdlib>
-#include <ctime>
+
 #include "DarkKnight.h"
+
 using namespace std;
 
-int main(){
-    int opcion;
+char mapa[FILAS][COLS] = {
+    "===========================================================",
+    "|...................................|....|................|",
+    "|........==..........==..............====.......==........|",
+    "|.......|..|........|..|.......................|..|.......|",
+    "|........==K.........==.C.......................==........|",
+    "|.........................................................|",
+    "|........==..........==.........................==........|",
+    "|.......|..|........|..|.......................|..|.......|",
+    "|........==..........==.........................==........|",
+    "|.........................................................|",
+    "|........==..........==.........................==........|",
+    "|.......|..|........|..|.......................|..|.......|",
+    "|........==....J.....==..............====.......==........|",
+    "|...................................|....|................|",
+    "==========================================================="
+};
 
-    mostrarMural();
-    mostrarHistoria();
+void limpiar() {
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
+}
 
+void pausa() {
+    cout << "\nPresiona ENTER para continuar...";
+    cin.get();
+}
 
-    menuPrincipal();
-    cin>>opcion;
-
-    switch(opcion){
-        case 1:
-
-        break;
-        case 2:
-            
-        break;
-        case 3:
-            subMenu2();
-            cin>>opcion;
-            do{
-                cout<<"==============INTEGRANTES=============="<<endl<<endl;
-                cout<<"Alisson Melissa Ramirez Campos 00058026"<<endl;
-                cout<<"    Jose Enrique Valladares 00078226   "<<endl;
-            }while (opcion !=2);
-        break;
-        case 4:
-            subMenu1();
-            cin>>opcion;
-        break;
-        case 5:
-
-        break;
-        default:
-
-        break;
+void mostrarMural() {
+    ifstream archivo("mural.txt");
+    string linea;
+    while (getline(archivo, linea)) {   // while + archivo
+        cout<<linea<<endl;
     }
+    archivo.close();
+    cout<<"Presiona Enter para continuar..."<<endl;
+    cin.get();
+}
+void mostrarLogo() {
+    ifstream archivo("Logo.txt");
+    string linea;
+    while (getline(archivo, linea)) {   // while + archivo
+        cout<<linea<<endl;
+    }
+    archivo.close();
+    cout<<"Presiona Enter para continuar..."<<endl;
+    cin.get();
+}
+void mostrarCrow() {
+    ifstream archivo("crow.txt");
+    string linea;
+    while (getline(archivo, linea)) {   // while + archivo
+        cout<<linea<<endl;
+    }
+    archivo.close();
+    cout<<"Presiona Enter para continuar..."<<endl;
+    cin.get();
 }

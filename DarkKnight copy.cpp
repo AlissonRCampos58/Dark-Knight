@@ -48,10 +48,30 @@ void mostrarMural() {
     cout<<"Presiona Enter para continuar..."<<endl;
     cin.get();
 }
+void mostrarLogo() {
+    ifstream archivo("Logo.txt");
+    string linea;
+    while (getline(archivo, linea)) {   // while + archivo
+        cout<<linea<<endl;
+    }
+    archivo.close();
+    cout<<"Presiona Enter para continuar..."<<endl;
+    cin.get();
+}
   
+void moverpersonaje(char tecla,int &x,int &y){ //mover personaje por mapa
+    switch(tecla){
+    case 'W': y--; break; 
+    case 'S': y++; break;  
+    case 'A': x--;break;
+    case 'D': x++;break;
+   default:
+   cout<<"tecla invalida usa A,W,S,D "<<endl;
+   break;
+}
+}
 int main(){
      SetConsoleOutputCP(CP_UTF8);
     mostrarMural();
     return 0;
-}
-    
+}    
