@@ -28,6 +28,17 @@ void subMenu2(){
     }
     cout<<"==============================="<<endl<<endl;
 }
+    }
+    cout<<"==============================="<<endl<<endl;
+}
+void subMenu2(){
+    string nombres[] = {"Dificultad de Juego","Integrantes","Salir"};
+    cout<<"===========OPCIONES============"<<endl<<endl;
+    for( int i=0; i<3;i++){
+        cout<<"    "<<i+1<<"."<<nombres[i]<<"    "<<endl;
+    }
+    cout<<"==============================="<<endl<<endl;
+}
 void mostrarHistoria() {
     cout << "=== LA LEYENDA DEL CABALLERO OSCURO ==="<<endl;
     cout << "Bajo el reino de Ceniza, el Santuario guarda a los que"<<endl;
@@ -79,3 +90,9 @@ struct enemigo {
         enemigo []={"goblin",20,10,8,2}
     
 #endif;
+}
+int main(){
+    mostrarHistoria();
+    mostrarMural();
+    return 0;
+}
