@@ -4,6 +4,11 @@
 #include <string>
 using namespace std;
 
+const int FILAS = 15;
+const int COLS = 60;
+const int MAX_ENEMIGOS = 8;
+const int MAX_ITEMS = 2;
+
 struct personaje{
     string Crow;
     int vida;
@@ -28,5 +33,7 @@ struct enemigo {
 
 
 
+        
+extern char mapa[FILAS][COLS];
 
 #endif
