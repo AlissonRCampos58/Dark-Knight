@@ -1,5 +1,3 @@
-#include <iostream>
-using namespace std;
 void moverpersonaje(char tecla,int &x,int &y){ //mover personaje por mapa
     switch(tecla){
     case 'W': y--; break; 
