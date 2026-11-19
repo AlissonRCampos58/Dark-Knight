@@ -9,30 +9,27 @@ const int COLS = 60;
 const int MAX_ENEMIGOS = 8;
 const int MAX_ITEMS = 2;
 
-struct personaje{
-    string Crow;
+struct personaje {
+    string nombre;      
     int vida;
     int vidamax;
     int ataque;
     int defensa;
     int nivel;
     int experiencia;
+    int chakra;         
+    int pociones;       // nuevo
 };
+
 struct enemigo {
-    string goblin;
+    string nombre;      
     int vida;
     int vidamax;
     int ataque;
     int defensa;
     int xp;
-}
-    //arreglo con enemigos
-        enemigo []={"goblin",20,10,8,2};
+};     
     
-
-
-
-
         
 extern char mapa[FILAS][COLS];
 
