@@ -11,6 +11,10 @@ void registrarUsuario(Usuario u[], int &n);
 int iniciarSesion(Usuario u[], int &n);
 void menuAdmin(Partida &p, Usuario u[], int n);
 void listarUsuarios(Usuario u[], int n);
+void reporteResultados(Usuario u[], int n, Partida p);
+void mostrarAyuda();
+void mostrarIntegrantes();
+
 
 
 void mostrarHistoria();

@@ -44,7 +44,17 @@ void pausa() {
 void mostrarMural() {
     ifstream archivo("mural.txt");
     string linea;
-    while (getline(archivo, linea)) {   // while + archivo
+    while (getline(archivo, linea)) {
+        cout<<linea<<endl;
+    }
+    archivo.close();
+    cout<<"Presiona Enter para continuar..."<<endl;
+    cin.get();
+}
+void mostrarCrow() {
+    ifstream archivo("crow.txt");
+    string linea;
+    while (getline(archivo, linea)) {
         cout<<linea<<endl;
     }
     archivo.close();
@@ -54,7 +64,7 @@ void mostrarMural() {
 void mostrarLogo() {
     ifstream archivo("Logo.txt");
     string linea;
-    while (getline(archivo, linea)) {   // while + archivo
+    while (getline(archivo, linea)) {
         cout<<linea<<endl;
     }
     archivo.close();
@@ -65,17 +75,20 @@ void menuPrincipal(Partida &p, Usuario u[], int n, int sesion) {
     bool esAdmin = (u[sesion].rol == 'A');
     int opcion = 0;
 
-    while (opcion != 4) {
+    while (opcion != 7) {
         limpiar();
-        cout << "========================================\n";
-        cout << "        EL SANTUARIO DE LA CENIZA\n";
-        cout << "========================================\n";
+        cout << "========================================"<<endl;
+        cout << "        EL SANTUARIO DE LA CENIZA"<<endl;
+        cout << "========================================"<<endl;
         cout << "  Sesion: " << u[sesion].nombre
-             << (esAdmin ? " (admin)" : " (jugador)") << "\n\n";
-        cout << "  1) Nueva partida\n";
-        cout << "  2) Continuar\n";
-        if (esAdmin) cout << "  3) Panel de administrador\n";
-        cout << "  4) Salir\n";
+             << (esAdmin ? " (admin)" : " (jugador)") <<endl<<endl;
+        cout << "  1) Nueva partida"<<endl;
+        cout << "  2) Continuar"<<endl;
+        if (esAdmin) cout << "  3) Panel de administrador"<<endl;
+        cout << "  4) Reporte de resultados"<<endl;
+        cout << "  5) Ayuda"<<endl;
+        cout << "  6) Integrantes"<<endl;
+        cout << "  7) Salir"<<endl;
         cout << "> ";
         cin >> opcion;
         cin.ignore();
@@ -86,26 +99,33 @@ void menuPrincipal(Partida &p, Usuario u[], int n, int sesion) {
                 break;
             case 2:
                 if (p.nivel == 0) {
-                    cout << "No hay partida guardada."<<endl;
+                    cout << "No hay partida guardada.\n";
                     pausa();
                 } else if (p.terminada) {
-                    cout << "Esa partida ya termino. Empieza una nueva."<<endl;
+                    cout << "Esa partida ya termino. Empieza una nueva.\n";
                     pausa();
                 } else {
                     jugar(p);
                 }
                 break;
             case 3:
-                if (esAdmin) {
-                    menuAdmin(p, u, n);
-;
-                } else {
-                    cout << "No tienes permiso para esa opcion."<<endl;
+                if (esAdmin) menuAdmin(p, u, n);
+                else {
+                    cout << "No tienes permiso para esa opcion.\n";
                     pausa();
                 }
                 break;
             case 4:
-                cout << "La oscuridad se queda quieta."<<endl;
+                reporteResultados(u, n, p);
+                break;
+            case 5:
+                mostrarAyuda();
+                break;
+            case 6:
+                mostrarIntegrantes();
+                break;
+            case 7:
+                cout << "La oscuridad se queda quieta..."<<endl;
                 break;
             default:
                 cout << "Opcion invalida."<<endl;
@@ -113,6 +133,134 @@ void menuPrincipal(Partida &p, Usuario u[], int n, int sesion) {
                 break;
         }
     }
+}
+
+void reporteResultados(Usuario u[], int n, Partida p) {
+    limpiar();
+    cout << "===== REPORTE DE RESULTADOS ====="<<endl<<endl;
+
+    int admins = 0, jugadores = 0;
+    for (int i = 0; i < n; i++) {
+        if (u[i].rol == 'A') admins++;
+        else jugadores++;
+    }
+
+    cout << "--- Usuarios ---"<<endl;
+    cout << "Total registrados : " << n <<endl;
+    cout << "Administradores   : " << admins <<endl;
+    cout << "Jugadores         : " << jugadores <<endl;
+    cout << "Espacios libres   : " << (MAX_USUARIOS - n) <<endl;
+    cout << "Ocupacion         : "
+         << (n * 100 / MAX_USUARIOS) << "%"<<endl<<endl;
+
+    cout << "--- Partida actual ---"<<endl;
+    cout << "Nivel alcanzado   : " << p.nivel <<endl;
+    cout << "Jefe derrotado    : " << (p.jefeMuerto ? "si" : "no") <<endl;
+    cout << "Partida terminada : " << (p.terminada ? "si" : "no") <<endl;
+
+    if (p.nivel == 0)
+        cout << "Estado: sin partida guardada."<<endl;
+    else if (p.terminada)
+        cout << "Estado: partida completada."<<endl;
+    else
+        cout << "Estado: en progreso."<<endl;
+
+    pausa();
+}
+
+void mostrarAyuda() {
+    int op = 0;
+
+    while (op != 5) {
+        limpiar();
+        cout << "========== AYUDA =========="<<endl<<endl;
+        cout << "1) Como se juega"<<endl;
+        cout << "2) Controles"<<endl;
+        cout << "3) Objeto"<<endl;
+        cout << "4) Consejos"<<endl;
+        cout << "5) Volver> "<<endl;
+        cin >> op;
+        cin.ignore();
+
+        switch (op) {
+            case 1:
+                limpiar();
+                cout << "===== COMO SE JUEGA ====="<<endl<<endl;
+                cout << "Recorres una mazmorra en 2D vista desde arriba,"<<endl;
+                cout << "- Cada nivel tiene enemigos y un jefe al final."<<endl;
+                cout << "- Si te quedas sin vida, la partida termina."<<endl;
+                cout << "- Derrota al jefe para ganar."<<endl;
+                cout << "- El progreso se guarda solo al derrotar al jefe."<<endl;
+                cout << "El mapa usa simbolos en ASCII:"<<endl;
+                cout << "  | y =  pared    .  suelo"<<endl;
+                cout << "  @  tu personaje E  enemigo"<<endl;
+                cout << "  J  jefe         +  objeto"<<endl;
+                cout << "  >  salida       "<<endl;
+                pausa();
+                break;
+
+            case 2:
+                limpiar();
+                cout << "===== CONTROLES ====="<<endl<<endl;
+                cout << "  W  o  arriba    mover arriba"<<endl;
+                cout << "  S  o  abajo     mover abajo"<<endl;
+                cout << "  A  o  izquierda mover izquierda"<<endl;
+                cout << "  D  o  derecha   mover derecha"<<endl<<endl;
+                cout << "  E               recoger objeto / abrir cofre"<<endl;
+                cout << "  I               abrir el inventario"<<endl;
+                cout << "  U               usar el objeto seleccionado"<<endl;
+                cout << "  ESC             pausa y guardar"<<endl;
+                cout << "Escribe la letra y pulsa Enter."<<endl;
+                pausa();
+                break;
+
+            case 3:
+                limpiar();
+                cout << "===== OBJETOS E INVENTARIO ====="<<endl;
+                cout << "Puedes cargar hasta 8 objetos a la vez."<<endl;
+                cout << "Si el inventario esta lleno, no puedes recoger mas."<<endl;
+                cout << "  P  Poción     recupera vida"<<endl;
+                cout << "  E  Espada     aumenta el dano de ataque"<<endl;
+                pausa();
+                break;
+
+            case 4:
+                limpiar();
+                cout << "===== ENEMIGOS Y JEFE ====="<<endl<<endl;
+                cout << "ENEMIGOS COMUNES"<<endl;
+                cout << "  Slime:   cuando te encuentra, te persigue hasta alcanzarte"<<endl<<endl;
+                cout << "JEFE"<<endl;
+                cout << "  Dragon:"<<endl;
+                cout << "  Uno por nivel, al final de la mazmorra."<<endl;
+                cout << "  Tienen mas vida y atacan en patron: golpean,"<<endl;
+                cout << "  se alejan y vuelven. Espera a que se alejen"<<endl;
+                cout << "  para acercarte y atacar."<<endl<<endl;
+                cout << "Regla general: no luches rodeado. Usa los pasillos"<<endl;
+                cout << "para enfrentarlos de uno en uno."<<endl;
+                pausa();
+                break;
+
+            case 5:
+                break;
+
+            default:
+                cout << "Opcion invalida."<<endl;
+                pausa();
+                break;
+        }
+    }
+}
+
+
+void mostrarIntegrantes() {
+    limpiar();
+    cout << "===== INTEGRANTES ====="<<endl<<endl;
+    cout << left << setw(28) << "NOMBRE" << "CARNET"<<endl;
+    cout << "----------------------------------------"<<endl;
+    cout << setw(28) << "Alisson Ramirez"        << "00058026"<<endl;
+    cout << setw(28) << "Enrique Valladares"    << "00078226"<<endl;
+    cout << "----------------------------------------"<<endl<<endl;
+    pausa();
 }
 
 void cargarPartida(Partida &p) {
@@ -134,9 +282,33 @@ void guardarPartida(Partida p) {
 }
 int jugadorX = 1;
 int jugadorY = 1;
+void jugar(Partida &p) {
+    limpiar();
+    cout << "======= NIVEL " << p.nivel << " =====" << endl << endl;
+    cout << "La Oscuridad se disipa frente a ti..." << endl;
+    cout << "Presiona Enter para entrar." << endl;
+    cin.get();
+    
+    explorar();
 
+    
+    if (enemigosVivos() > 0) {
+       
+        cout << "No lograste limpiar el nivel." << endl;
+        pausa();
+        return;
+    }
+
+    
+    p.nivel++;
+    p.jefeMuerto = true;
+    guardarPartida(p);
+
+    cout << "Llegaste al nivel " << p.nivel << "." << endl;
+    pausa();
+}
 bool esPared(char c) {
-    return c == '|' || c == '=';
+    return c == '|' || c == '=' || c=='"';
 }
 //para la funcion dibujar mapa la realize yo pero me ayude de IA
 char leerTecla()
@@ -190,31 +362,51 @@ void atacar(personaje &p, int dx, int dy) {
     }
 }
 void moverEnemigos(personaje &p, int tick) {
+    bool yaGolpeado = false;
     for (int i = 0; i < totalEnemigos; i++) {
-        if (enemigos[i].vida <= 0) continue;
+    if (enemigos[i].vida <= 0) continue;
 
-        int dx = jugadorX - enemigos[i].x;
-        int dy = jugadorY - enemigos[i].y;
-        int dist = abs(dx) + abs(dy);
-
-        if (dist == 1) {                       
-            int d = enemigos[i].ataque - p.defensa;
-            if (d < 1) d = 1;
-            p.vida -= d;
-            mensaje = enemigos[i].nombre + " te golpea por " + to_string(d);
-        } else if (dist <= 8 && tick % 2 == 0) {
-            int nx = enemigos[i].x, ny = enemigos[i].y;
-            if (abs(dx) > abs(dy)) nx += (dx > 0) ? 1 : -1;
-            else                   ny += (dy > 0) ? 1 : -1;
-
-            if (!esPared(mapa[ny][nx]) && enemigoEn(nx, ny) == -1 &&
-                !(nx == jugadorX && ny == jugadorY)) {
-                enemigos[i].x = nx;
-                enemigos[i].y = ny;
-            }
-        }
+    int dx = 0, dy = 0;
+    if (jugadorX > enemigos[i].x) dx = 1;
+    else if (jugadorX < enemigos[i].x) dx = -1;
+    if (jugadorY > enemigos[i].y) dy = 1;
+    else if (jugadorY < enemigos[i].y) dy = -1;
+    if (enemigos[i].cooldown > 0) {
+    enemigos[i].cooldown--;
+    continue;
     }
+    int nx = enemigos[i].x + dx;
+    int ny = enemigos[i].y + dy;
+
+    if (nx < 1 || nx >= COLS - 1 || ny < 1 || ny >= FILAS - 1) continue;
+
+    // ¿me alcanza? -> golpe, y no se mueve
+    if (nx == jugadorX && ny == jugadorY) {
+        if (!yaGolpeado) {
+        p.vida -= 1;
+        yaGolpeado = true;
+        mensaje = "Un enemigo te golpeo!";
+        }
+        enemigos[i].cooldown = 2;
+        continue;
+    }
+
+    if (esPared(mapa[ny][nx])) continue;
+    if (mapa[ny][nx] == 'C' || mapa[ny][nx] == 'K') continue;
+    if (enemigoEn(nx, ny) != -1) continue;
+
+    mapa[enemigos[i].y][enemigos[i].x] = '.';
+    enemigos[i].x = nx;
+    enemigos[i].y = ny;
+    mapa[ny][nx] = 'E';
 }
+    if (p.vida <= 0) {
+    cout << "Has muerto...\n";
+    pausa();
+    return;   // o reiniciar nivel
+}
+}
+
       void dibujarMapa(personaje &p) {
     cout << "\033[H";
     for (int y = 0; y < FILAS; y++) {
@@ -239,8 +431,24 @@ void moverEnemigos(personaje &p, int tick) {
     cout << mensaje << "                              " << endl;
     cout << "Mover: WASD | Espada: ESPACIO | Pocion: P | Salir: Q" << endl;
 }
+char moverpersonaje(char tecla, int &x, int &y) {
+    int nx = x, ny = y;
+
+    if (tecla == 'W') ny--;
+    if (tecla == 'S') ny++;
+    if (tecla == 'A') nx--;
+    if (tecla == 'D') nx++;
+
+    if (nx < 0 || nx >= COLS - 1 || ny < 0 || ny >= FILAS) return '.';
+    if (esPared(mapa[ny][nx])) return '.';
+
+    x = nx;
+    y = ny;
+    return mapa[ny][nx];
+}
+
   void explorar() {
-    personaje jugador = {"Crow", 100, 100, 15, 3, 1, 0, 50, 1};
+    personaje jugador = {"Crow", 100, 100, 20, 3, 1, 0, 50, 1};
     int dirX = 1, dirY = 0;   
     int tick = 0;             
 
@@ -255,13 +463,17 @@ void moverEnemigos(personaje &p, int tick) {
 
         if (tecla == ' ') {
             atacar(jugador, dirX, dirY);
-        } else if (tecla == 'P') {
-            if (jugador.pociones > 0 && jugador.vida < jugador.vidamax) {
-                jugador.pociones--;
-                jugador.vida += 40;
-                if (jugador.vida > jugador.vidamax) jugador.vida = jugador.vidamax;
-                mensaje = "Bebes una pocion";
-            }
+        } else if (tecla == 'p' || tecla == 'P') {
+        if (jugador.pociones <= 0) {
+            mensaje = "No te quedan pociones.";
+        } else if (jugador.vida >= jugador.vidamax) {
+            mensaje = "Ya tienes la vida completa.";
+        } else {
+            jugador.pociones--;
+            jugador.vida += 5;
+        if (jugador.vida > jugador.vidamax) jugador.vida = jugador.vidamax;
+            mensaje = "Bebes una pocion";
+    }
         } else if (tecla == 'W' || tecla == 'A' || tecla == 'S' || tecla == 'D') {
             dirX = 0;
             dirY = 0;
@@ -272,16 +484,19 @@ void moverEnemigos(personaje &p, int tick) {
 
             // no atraviesa enemigos
             if (enemigoEn(jugadorX + dirX, jugadorY + dirY) == -1) {
+                int antX = jugadorX, antY = jugadorY;          // antes de mover
                 char c = moverpersonaje(tecla, jugadorX, jugadorY);
+
                 if (c == 'C') {
                     jugador.chakra += 25;
-                    mapa[jugadorY][jugadorX] = '.';
+                    mapa[jugadorY][jugadorX] = '.';                    // borra la C de donde estabas
                 } else if (c == 'K') {
                     jugador.pociones++;
                     mensaje = "Encontraste una pocion!";
-                    mapa[jugadorY][jugadorX] = '.';
+                    mapa[jugadorY][jugadorX] = '.';                    // borra la K de donde estabas
                 }
             }
+
         }
 
         moverEnemigos(jugador, tick);
@@ -299,7 +514,10 @@ void moverEnemigos(personaje &p, int tick) {
     p.jefeMuerto = false;
     p.terminada = false;
     guardarPartida(p);
+    SetConsoleOutputCP(CP_UTF8);
     mostrarMural();
+    mostrarCrow();
+    mostrarLogo();
     jugar(p);
 };
 
@@ -311,7 +529,7 @@ void cargarUsuarios(Usuario u[], int &n) {
         u[0] = {"admin", "1234", 'A', true};
         n = 1;
         ofstream nuevo("usuarios.txt");
-        nuevo << "admin 1234 A\n";
+        nuevo << "admin 1234 A"<<endl;
         nuevo.close();
         return;
     }
@@ -325,13 +543,13 @@ void cargarUsuarios(Usuario u[], int &n) {
 
 void registrarUsuario(Usuario u[], int &n) {
     if (n >= MAX_USUARIOS) {
-        cout << "No hay espacio para mas usuarios.\n";
+        cout << "No hay espacio para mas usuarios."<<endl;
         pausa();
         return;
     }
 
     limpiar();
-    cout << "===== REGISTRO =====\n";
+    cout << "===== REGISTRO ====="<<endl;
 
     string nombre, clave;
     cout << "Nuevo usuario: ";
@@ -339,7 +557,7 @@ void registrarUsuario(Usuario u[], int &n) {
 
     for (int i = 0; i < n; i++) {
         if (u[i].nombre == nombre) {
-            cout << "\nEse nombre ya existe.\n";
+            cout << "Ese nombre ya existe."<<endl;
             pausa();
             return;
         }
@@ -356,10 +574,10 @@ void registrarUsuario(Usuario u[], int &n) {
     n++;
 
     ofstream archivo("usuarios.txt", ios::app);
-    archivo << nombre << " " << clave << " J\n";
+    archivo << nombre << " " << clave << " J"<<endl;
     archivo.close();
 
-    cout << "\nUsuario creado. Ya puedes iniciar sesion.\n";
+    cout << "Usuario creado. Ya puedes iniciar sesion."<<endl;
     pausa();
 }
 
@@ -368,10 +586,10 @@ int iniciarSesion(Usuario u[], int &n) {
 
     while (intentos < 3) {
         limpiar();
-        cout << "===== INICIAR SESION =====\n";
-        cout << "1) Entrar\n";
-        cout << "2) Registrarse\n";
-        cout << "3) Salir\n> ";
+        cout << "===== INICIAR SESION ====="<<endl;
+        cout << "1) Entrar"<<endl;
+        cout << "2) Registrarse"<<endl;
+        cout << "3) Salir> "<<endl;
 
         int op = 0;
         cin >> op;
@@ -399,14 +617,14 @@ int iniciarSesion(Usuario u[], int &n) {
 
         for (int i = 0; i < n; i++) {
             if (u[i].activo && u[i].nombre == nombre && u[i].clave == clave) {
-                cout << "\nBienvenido, " << u[i].nombre << '\n';
+                cout << "Bienvenido, " << u[i].nombre <<endl;
                 pausa();
                 return i;
             }
         }
 
         intentos++;
-        cout << "\nDatos incorrectos. Intentos restantes: " << (3 - intentos) << '\n';
+        cout << "Datos incorrectos. Intentos restantes: " << (3 - intentos) <<endl;
         pausa();
     }
     return -1;
@@ -414,7 +632,7 @@ int iniciarSesion(Usuario u[], int &n) {
 
 void menuAdmin(Partida &p, Usuario u[], int n) {
     int op = 0;
-    while (op != 3) {
+    while (op != 4) {
         limpiar();
         cout << "===== PANEL DE ADMINISTRADOR ====="<<endl;
         cout << "1) Ver estado de la partida"<<endl;
@@ -453,10 +671,10 @@ void menuAdmin(Partida &p, Usuario u[], int n) {
 }
 void listarUsuarios(Usuario u[], int n) {
     limpiar();
-    cout << "===== USUARIOS REGISTRADOS =====\n\n";
+    cout << "===== USUARIOS REGISTRADOS ====="<<endl<<endl;
 
     if (n == 0) {
-        cout << "No hay usuarios cargados.\n";
+        cout << "No hay usuarios cargados."<<endl;
         pausa();
         return;
     }
@@ -465,18 +683,18 @@ void listarUsuarios(Usuario u[], int n) {
          << setw(4)  << "No."
          << setw(18) << "Usuario"
          << setw(8)  << "Rol"
-         << "Estado\n";
-    cout << "----------------------------------------\n";
+         << "Estado"<<endl;
+    cout << "----------------------------------------"<<endl;
 
     for (int i = 0; i < n; i++) {
         cout << setw(4)  << (i + 1)
              << setw(18) << u[i].nombre
              << setw(8)  << (u[i].rol == 'A' ? "Admin" : "Jugador")
-             << (u[i].activo ? "Activo" : "Inactivo") << '\n';
+             << (u[i].activo ? "Activo" : "Inactivo") <<endl;
     }
 
-    cout << "----------------------------------------\n";
-    cout << "Total: " << n << " de " << MAX_USUARIOS << " espacios\n";
+    cout << "----------------------------------------"<<endl;
+    cout << "Total: " << n << " de " << MAX_USUARIOS << " espacios"<<endl;
     pausa();
 }
 

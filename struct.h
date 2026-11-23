@@ -6,14 +6,14 @@ using namespace std;
 
 const int FILAS = 15;
 const int COLS = 60;
-const int MAX_ENEMIGOS = 8;
-const int MAX_ITEMS = 2;
+const int MAX_ENEMIGOS = 5;
+const int MAX_ITEMS = 5;
 const int MAX_USUARIOS = 10;
 
 struct Usuario {
     string nombre;
     string clave;
-    char rol;      // Admin y Jugadores
+    char rol;      //  de Admin y Jugadores
     bool activo;
 };
 
@@ -40,7 +40,8 @@ struct enemigo {
     int xp;
     int x;
     int y;
-     bool esJefe;
+    bool esJefe;
+    int cooldown;
 };     
 
 struct Item {
