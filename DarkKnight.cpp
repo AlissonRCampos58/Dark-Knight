@@ -78,18 +78,22 @@ void menuPrincipal(Partida &p, Usuario u[], int n, int sesion) {
     while (opcion != 7) {
         limpiar();
         cout << "========================================"<<endl;
-        cout << "        EL SANTUARIO DE LA CENIZA"<<endl;
+        cout << "        EL SANTUARIO DE LA CENIZA       "<<endl;
         cout << "========================================"<<endl;
-        cout << "  Sesion: " << u[sesion].nombre
-             << (esAdmin ? " (admin)" : " (jugador)") <<endl<<endl;
-        cout << "  1) Nueva partida"<<endl;
-        cout << "  2) Continuar"<<endl;
-        if (esAdmin) cout << "  3) Panel de administrador"<<endl;
-        cout << "  4) Reporte de resultados"<<endl;
-        cout << "  5) Ayuda"<<endl;
-        cout << "  6) Integrantes"<<endl;
-        cout << "  7) Salir"<<endl;
-        cout << "> ";
+        cout << "|  Sesion: " << u[sesion].nombre<<"    |"
+             << (esAdmin ? " (admin)        |" : " (jugador)        |") <<endl<<endl;
+             cout << "=======================================|"<<endl;
+        cout << "| 1) Nueva partida                     |"<<endl;
+        cout << "| 2) Continuar                         |"<<endl;
+        if (esAdmin) 
+        cout << "|  3) Panel de administrador           |"<<endl;
+        cout << "|  4) Reporte de resultados            |"<<endl;
+        cout << "|  5) Ayuda                            |"<<endl;
+        cout << "|  6) Integrantes                      |"<<endl;
+        cout << "|  7) Salir                            |"<<endl;
+        cout << "|                                      |"<<endl;
+        cout << "========================================"<<endl;
+        cout << "|> ";
         cin >> opcion;
         cin.ignore();
 
@@ -137,34 +141,36 @@ void menuPrincipal(Partida &p, Usuario u[], int n, int sesion) {
 
 void reporteResultados(Usuario u[], int n, Partida p) {
     limpiar();
-    cout << "===== REPORTE DE RESULTADOS ====="<<endl<<endl;
+    cout << "==================================="<<endl;
+    cout << "|===== REPORTE DE RESULTADOS =====|"<<endl;
 
     int admins = 0, jugadores = 0;
     for (int i = 0; i < n; i++) {
         if (u[i].rol == 'A') admins++;
         else jugadores++;
     }
-
-    cout << "--- Usuarios ---"<<endl;
-    cout << "Total registrados : " << n <<endl;
-    cout << "Administradores   : " << admins <<endl;
-    cout << "Jugadores         : " << jugadores <<endl;
-    cout << "Espacios libres   : " << (MAX_USUARIOS - n) <<endl;
-    cout << "Ocupacion         : "
-         << (n * 100 / MAX_USUARIOS) << "%"<<endl<<endl;
-
-    cout << "--- Partida actual ---"<<endl;
-    cout << "Nivel alcanzado   : " << p.nivel <<endl;
-    cout << "Jefe derrotado    : " << (p.jefeMuerto ? "si" : "no") <<endl;
-    cout << "Partida terminada : " << (p.terminada ? "si" : "no") <<endl;
+    cout << "==================================="<<endl; 
+    cout << "|------------ Usuarios -----------|"<<endl;
+    cout << "|Total registrados : " << n <<"            |"<<endl;
+    cout << "|Administradores   : " << admins <<"            |"<<endl;
+    cout << "|Jugadores         : " << jugadores <<"            |"<<endl;
+    cout << "|Espacios libres   : " << (MAX_USUARIOS - n) <<"            |"<<endl;
+    cout << "|Ocupacion         : "
+         << (n * 100 / MAX_USUARIOS) << "%"<<"          |"<<endl<<endl;
+    
+    cout << "==================================="<<endl;     
+    cout << "|-------- Partida actual ---------|"<<endl;
+    cout << "|Nivel alcanzado   : |" << p.nivel <<endl;
+    cout << "|Jefe derrotado    : " << (p.jefeMuerto ? "            si|" : "           no|") <<endl;
+    cout << "|Partida terminada : " << (p.terminada ? "             si|" : "           no|") <<endl;
 
     if (p.nivel == 0)
-        cout << "Estado: sin partida guardada."<<endl;
+        cout << "|Estado: sin partida guardada.    |"<<endl;
     else if (p.terminada)
-        cout << "Estado: partida completada."<<endl;
+        cout << "|Estado: partida completada.      |"<<endl;
     else
-        cout << "Estado: en progreso."<<endl;
-
+        cout << "|Estado: en progreso.             |"<<endl;
+        cout << "=================================="<<endl;
     pausa();
 }
 
@@ -173,70 +179,82 @@ void mostrarAyuda() {
 
     while (op != 5) {
         limpiar();
-        cout << "========== AYUDA =========="<<endl<<endl;
-        cout << "1) Como se juega"<<endl;
-        cout << "2) Controles"<<endl;
-        cout << "3) Objeto"<<endl;
-        cout << "4) Consejos"<<endl;
-        cout << "5) Volver> "<<endl;
+        cout << "============================="<<endl;
+        cout << "|========== AYUDA ==========|"<<endl<<endl;
+        cout << "============================="<<endl;
+        cout << "|1) Como se juega           |"<<endl;
+        cout << "|2) Controles               |"<<endl;
+        cout << "|3) Objeto                  |"<<endl;
+        cout << "|4) Consejos                |"<<endl;
+        cout << "|5) Volver                  |"<<endl;
+        cout << "============================="<<endl;
+        cout << "|> ";
         cin >> op;
         cin.ignore();
 
         switch (op) {
             case 1:
                 limpiar();
-                cout << "===== COMO SE JUEGA ====="<<endl<<endl;
-                cout << "Recorres una mazmorra en 2D vista desde arriba,"<<endl;
-                cout << "- Cada nivel tiene enemigos y un jefe al final."<<endl;
-                cout << "- Si te quedas sin vida, la partida termina."<<endl;
-                cout << "- Derrota al jefe para ganar."<<endl;
-                cout << "- El progreso se guarda solo al derrotar al jefe."<<endl;
-                cout << "El mapa usa simbolos en ASCII:"<<endl;
-                cout << "  | y =  pared    .  suelo"<<endl;
-                cout << "  @  tu personaje E  enemigo"<<endl;
-                cout << "  J  jefe         +  objeto"<<endl;
-                cout << "  >  salida       "<<endl;
+                cout << "==================================================="<<endl;
+                cout << "|=============== COMO SE JUEGA ===================|"<<endl<<endl;
+                cout << "==================================================="<<endl;
+                cout << "|Recorres una mazmorra en 2D vista desde arriba,  |"<<endl;
+                cout << "|- Cada nivel tiene enemigos y un jefe al final.  |"<<endl;
+                cout << "|- Si te quedas sin vida, la partida termina.     |"<<endl;
+                cout << "|- Derrota al jefe para ganar.                    |"<<endl;
+                cout << "|- El progreso se guarda solo al derrotar al jefe.|"<<endl;
+                cout << "|El mapa usa simbolos en ASCII:                   |"<<endl;
+                cout << "|  | y = -->  pared    |  . -->  suelo            |"<<endl;
+                cout << "|  @  --> tu personaje |  E --> enemigo           |"<<endl;
+                cout << "|  D  --> jefe         |  + --> objeto            |"<<endl;
+                cout << "==================================================="<<endl;
                 pausa();
                 break;
 
             case 2:
                 limpiar();
-                cout << "===== CONTROLES ====="<<endl<<endl;
-                cout << "  W  o  arriba    mover arriba"<<endl;
-                cout << "  S  o  abajo     mover abajo"<<endl;
-                cout << "  A  o  izquierda mover izquierda"<<endl;
-                cout << "  D  o  derecha   mover derecha"<<endl<<endl;
-                cout << "  E               recoger objeto / abrir cofre"<<endl;
-                cout << "  I               abrir el inventario"<<endl;
-                cout << "  U               usar el objeto seleccionado"<<endl;
-                cout << "  ESC             pausa y guardar"<<endl;
-                cout << "Escribe la letra y pulsa Enter."<<endl;
+                cout << "==================================="<<endl;
+                cout << "|=========== CONTROLES ===========|"<<endl<<endl;
+                cout << "==================================="<<endl;
+                cout << "|  W  o  arriba    mover arriba   |"<<endl;
+                cout << "|  S  o  abajo     mover abajo    |"<<endl;
+                cout << "|  A  o  izquierda mover izquierda|"<<endl;
+                cout << "|  D  o  derecha   mover derecha  |"<<endl;
+                cout << "|---------------------------------|"<<endl;
+                cout << "|  P               usar el Pocion |"<<endl;
+                cout << "|  ESC             pausa y guardar|"<<endl;
+                cout << "|Escribe la letra y pulsa Enter.  |"<<endl;
+                cout << "==================================="<<endl;
                 pausa();
                 break;
 
             case 3:
                 limpiar();
-                cout << "===== OBJETOS E INVENTARIO ====="<<endl;
-                cout << "Puedes cargar hasta 8 objetos a la vez."<<endl;
-                cout << "Si el inventario esta lleno, no puedes recoger mas."<<endl;
-                cout << "  P  Poción     recupera vida"<<endl;
-                cout << "  E  Espada     aumenta el dano de ataque"<<endl;
+                cout << "========================================="<<endl;
+                cout << "|=========== POCIONES Y CHAKRA =========="<<endl;
+                cout << "|  P  Pocion     recupera vida          |"<<endl;
+                cout << "|  Chakra     aumenta el dano de ataque |"<<endl;
+                cout << "========================================="<<endl;
                 pausa();
                 break;
 
             case 4:
                 limpiar();
-                cout << "===== ENEMIGOS Y JEFE ====="<<endl<<endl;
-                cout << "ENEMIGOS COMUNES"<<endl;
-                cout << "  Slime:   cuando te encuentra, te persigue hasta alcanzarte"<<endl<<endl;
-                cout << "JEFE"<<endl;
-                cout << "  Dragon:"<<endl;
-                cout << "  Uno por nivel, al final de la mazmorra."<<endl;
-                cout << "  Tienen mas vida y atacan en patron: golpean,"<<endl;
-                cout << "  se alejan y vuelven. Espera a que se alejen"<<endl;
-                cout << "  para acercarte y atacar."<<endl<<endl;
-                cout << "Regla general: no luches rodeado. Usa los pasillos"<<endl;
-                cout << "para enfrentarlos de uno en uno."<<endl;
+                cout << "=============================================================="<<endl;
+                cout << "|===================== ENEMIGOS Y JEFE ======================|"<<endl<<endl;
+                cout << "=============================================================="<<endl;
+                cout << "|ENEMIGOS COMUNES                                            |"<<endl;
+                cout << "|  Slime:   cuando te encuentra, te persigue hasta alcanzarte|"<<endl<<endl;
+                cout << "|JEFE                                                        |"<<endl;
+                cout << "|  Dragon:                                                   |"<<endl;
+                cout << "|  Uno por nivel, al final de la mazmorra.                   |"<<endl;
+                cout << "|  Tienen mas vida y atacan en patron: golpean,              |"<<endl;
+                cout << "|  se alejan y vuelven. Espera a que se alejen               |"<<endl;
+                cout << "|  para acercarte y atacar.                                  |"<<endl<<endl;
+                cout << "|------------------------------------------------------------|"<<endl;
+                cout << "|Regla general: no luches rodeado. Usa los pasillos          |"<<endl;
+                cout << "|para enfrentarlos de uno en uno.                            |"<<endl;
+                cout << "=============================================================="<<endl;
                 pausa();
                 break;
 
@@ -254,12 +272,14 @@ void mostrarAyuda() {
 
 void mostrarIntegrantes() {
     limpiar();
-    cout << "===== INTEGRANTES ====="<<endl<<endl;
-    cout << left << setw(28) << "NOMBRE" << "CARNET"<<endl;
-    cout << "----------------------------------------"<<endl;
-    cout << setw(28) << "Alisson Ramirez"        << "00058026"<<endl;
-    cout << setw(28) << "Enrique Valladares"    << "00078226"<<endl;
-    cout << "----------------------------------------"<<endl<<endl;
+    cout << "================================================="<<endl;
+    cout << "|================= INTEGRANTES =================|"<<endl<<endl;
+    cout << "================================================="<<endl;
+    cout << left << setw(28) <<  "|NOMBRE" << "CARNET              |"<<endl;
+    cout << "-------------------------------------------------"<<endl;
+    cout << setw(28) << "|Alisson Ramirez"       << "00058026            |"<<endl;
+    cout << setw(28) << "|Enrique Valladares"    << "00078226            |"<<endl;
+    cout << "================================================="<<endl;
     pausa();
 }
 
@@ -284,9 +304,12 @@ int jugadorX = 1;
 int jugadorY = 1;
 void jugar(Partida &p) {
     limpiar();
-    cout << "======= NIVEL " << p.nivel << " =====" << endl << endl;
-    cout << "La Oscuridad se disipa frente a ti..." << endl;
-    cout << "Presiona Enter para entrar." << endl;
+    cout << "================================================="<<endl;
+    cout << "|============ NIVEL " << p.nivel << " ===============|" << endl << endl;
+    cout << "================================================="<<endl;
+    cout << "|La Oscuridad se disipa frente a ti...          |" << endl;
+    cout << "|Presiona Enter para entrar.                    |" << endl;
+    cout << "================================================"<<endl;
     cin.get();
     
     explorar();
@@ -294,7 +317,7 @@ void jugar(Partida &p) {
     
     if (enemigosVivos() > 0) {
        
-        cout << "No lograste limpiar el nivel." << endl;
+        cout << "No lograste limpiar el nivel..." << endl;
         pausa();
         return;
     }
@@ -489,11 +512,11 @@ char moverpersonaje(char tecla, int &x, int &y) {
 
                 if (c == 'C') {
                     jugador.chakra += 25;
-                    mapa[jugadorY][jugadorX] = '.';                    // borra la C de donde estabas
+                    mapa[jugadorY][jugadorX] = '.';
                 } else if (c == 'K') {
                     jugador.pociones++;
                     mensaje = "Encontraste una pocion!";
-                    mapa[jugadorY][jugadorX] = '.';                    // borra la K de donde estabas
+                    mapa[jugadorY][jugadorX] = '.';
                 }
             }
 
@@ -586,10 +609,13 @@ int iniciarSesion(Usuario u[], int &n) {
 
     while (intentos < 3) {
         limpiar();
-        cout << "===== INICIAR SESION ====="<<endl;
-        cout << "1) Entrar"<<endl;
-        cout << "2) Registrarse"<<endl;
-        cout << "3) Salir> "<<endl;
+        cout << "============================"<<endl;
+        cout << "|===== INICIAR SESION =====|"<<endl;
+        cout << "============================"<<endl;
+        cout << "|        1) Entrar         |"<<endl;
+        cout << "|      2) Registrarse      |"<<endl;
+        cout << "|        3) Salir>         |"<<endl;
+        cout << "============================"<<endl;
 
         int op = 0;
         cin >> op;
@@ -634,11 +660,14 @@ void menuAdmin(Partida &p, Usuario u[], int n) {
     int op = 0;
     while (op != 4) {
         limpiar();
-        cout << "===== PANEL DE ADMINISTRADOR ====="<<endl;
-        cout << "1) Ver estado de la partida"<<endl;
-        cout << "2) Reiniciar partida guardada"<<endl;
-        cout << "3) Listado de usuarios registrados"<<endl;
-        cout << "4) Volver> "<<endl;
+        cout << "===================================="<<endl;
+        cout << "|===== PANEL DE ADMINISTRADOR =====|"<<endl;
+        cout << "|1) Ver estado de la partida       |"<<endl;
+        cout << "|2) Reiniciar partida guardada     |"<<endl;
+        cout << "|3) Listado de usuarios registrados|"<<endl;
+        cout << "|4) Volver                         |"<<endl;
+        cout << "===================================="<<endl;
+        cout << "> ";
         cin >> op;
         cin.ignore();
 
@@ -671,7 +700,9 @@ void menuAdmin(Partida &p, Usuario u[], int n) {
 }
 void listarUsuarios(Usuario u[], int n) {
     limpiar();
-    cout << "===== USUARIOS REGISTRADOS ====="<<endl<<endl;
+    cout << "=================================="<<endl;
+    cout << "|===== USUARIOS REGISTRADOS =====|"<<endl;
+    cout << "=================================="<<endl;
 
     if (n == 0) {
         cout << "No hay usuarios cargados."<<endl;
