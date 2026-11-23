@@ -66,7 +66,7 @@ int jugadorY = 1;
 bool esPared(char c) {
     return c == '|' || c == '=';
 }
-//para la funcion dibujar mapa me ayude con IA
+//para la funcion dibujar mapa la realize yo pero me ayude de IA
 void dibujarMapa() {
    cout << "\033[H";
     for (int y = 0; y < FILAS; y++) {
@@ -117,7 +117,7 @@ char leerTecla()
  { return toupper(_getch());}
 // la funcion explorar me apoye de IA para poder hacerla
     void explorar() { personaje jugador = {"Crow", 100, 100, 15, 3, 1, 0, 50, 1};
-    // orden: nombre, vida, vidamax, ataque, defensa, nivel, xp, chakra, pociones
+    // el orden esta como en el struct
     bool tieneLlave = false;
     limpiar();
 
