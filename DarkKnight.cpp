@@ -345,11 +345,37 @@ void cargarEnemigos() {
     for (int y = 0; y < FILAS; y++) {
         for (int x = 0; x < COLS - 1; x++) {
             if (mapa[y][x] == 'E' && totalEnemigos < MAX_ENEMIGOS) {
-                enemigos[totalEnemigos] = {"Slime", 30, 30, 6, 1, 10, x, y};
+                enemigo e;
+                e.nombre   = "Slime";
+                e.fila     = y;
+                e.col      = x;
+                e.vida     = 10;
+                e.vidamax  = 10;
+                e.ataque   = 6;
+                e.defensa  = 1;
+                e.xp       = 10;
+                e.x        = x;
+                e.y        = y;
+                e.esJefe   = false;
+                e.cooldown = 0;
+                enemigos[totalEnemigos] = e;
                 totalEnemigos++;
                 mapa[y][x] = '.';
             } else if (mapa[y][x] == 'J' && totalEnemigos < MAX_ENEMIGOS) {
-                enemigos[totalEnemigos] = {"Dragon", 80, 80, 12, 3, 100, x, y};
+                enemigo j;
+                j.nombre   = "Dragon";
+                j.fila     = y;
+                j.col      = x;
+                j.vida     = 15;
+                j.vidamax  = 15;
+                j.ataque   = 12;
+                j.defensa  = 3;
+                j.xp       = 100;
+                j.x        = x;
+                j.y        = y;
+                j.esJefe   = true;
+                j.cooldown = 0;
+                enemigos[totalEnemigos] = j;
                 totalEnemigos++;
                 mapa[y][x] = '.';
             }
@@ -471,7 +497,7 @@ char moverpersonaje(char tecla, int &x, int &y) {
 }
 
   void explorar() {
-    personaje jugador = {"Crow", 100, 100, 20, 3, 1, 0, 50, 1};
+    personaje jugador = {"Crow", 100, 100, 20, 10, 1, 0, 50, 1};
     int dirX = 1, dirY = 0;   
     int tick = 0;             
 
