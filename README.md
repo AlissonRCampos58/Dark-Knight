@@ -14,7 +14,6 @@ Estadísticas de personaje
 
 Jose Membreño 00078226
 Controles
-Inventario
 Exploracion
 Combate
 Decoracion
