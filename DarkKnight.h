@@ -6,11 +6,22 @@
 void limpiar();
 void pausa();
 
+void cargarUsuarios(Usuario u[], int &n);
+void registrarUsuario(Usuario u[], int &n);
+int iniciarSesion(Usuario u[], int &n);
+void menuAdmin(Partida &p, Usuario u[], int n);
+void listarUsuarios(Usuario u[], int n);
+void reporteResultados(Usuario u[], int n, Partida p);
+void mostrarAyuda();
+void mostrarIntegrantes();
+
+
+
 void mostrarHistoria();
 void mostrarcrow();
 void mostrarMural();
 
-void menuPrincipal();
+void menuPrincipal(Partida &p, Usuario u[], int n, int sesion);
 
 void cargarPartida(Partida &p);
 void guardarPartida(Partida p);
@@ -18,18 +29,20 @@ void guardarPartida(Partida p);
 void subMenu1();
 void subMenu2();
 
-void inicializarEnemigos(enemigo e[], int &n);
-void inicializarItems(Item it[], int &n);
+bool esPared(char c);
 
-bool esMuro(int f, int c);
-int buscarEnemigo(enemigo e[], int n, int f, int c);
+char leerTecla();
 
-void dibujarMapa(personaje j, enemigo e[], int nE, Item it[], int nI);
-void dibujarHUD(personaje j);
+void cargarEnemigos();
+int enemigoEn(int x, int y);
+int enemigosVivos();
+void atacar(personaje &p, int dx, int dy);
+void moverEnemigos(personaje &p, int tick);
 
-void combate(personaje &j, enemigo &e);
+void dibujarMapa(personaje &p);
+void explorar();
 
-void moverpersonaje(char tecla,int &x,int &y);
+char moverpersonaje(char tecla, int &x, int &y);
 
 void jugar(Partida &p);
 void nuevoJuego(Partida &p);
