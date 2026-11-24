@@ -13,7 +13,7 @@ const int MAX_USUARIOS = 10;
 struct Usuario {
     string nombre;
     string clave;
-    char rol;      //  de Admin y Jugadores
+    char rol;
     bool activo;
 };
 
@@ -27,7 +27,7 @@ struct personaje {
     int nivel;
     int experiencia; 
     int pociones;   
-    int chakra;  // nuevo
+    int chakra;
 };
 
 struct enemigo {
@@ -46,7 +46,7 @@ struct enemigo {
 
 struct Item {
     int fila, col;
-    char tipo;// 'P' pocion
+    char tipo;
     bool activo;
 };
 
