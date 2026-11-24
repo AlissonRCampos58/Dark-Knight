@@ -333,10 +333,10 @@ void jugar(Partida &p) {
 bool esPared(char c) {
     return c == '|' || c == '=' || c=='"';
 }
-//para la funcion dibujar mapa la realize yo pero me ayude de IA
+
 char leerTecla()
  { return toupper(_getch());}
-// la funcion explorar me apoye de IA para poder hacerla
+
 enemigo enemigos[MAX_ENEMIGOS];
 int totalEnemigos = 0;
 string mensaje = "";
@@ -429,7 +429,6 @@ void moverEnemigos(personaje &p, int tick) {
 
     if (nx < 1 || nx >= COLS - 1 || ny < 1 || ny >= FILAS - 1) continue;
 
-    // ¿me alcanza? -> golpe, y no se mueve
     if (nx == jugadorX && ny == jugadorY) {
         if (!yaGolpeado) {
         p.vida -= 1;
@@ -452,7 +451,7 @@ void moverEnemigos(personaje &p, int tick) {
     if (p.vida <= 0) {
     cout << "Has muerto...\n";
     pausa();
-    return;   // o reiniciar nivel
+    return;
 }
 }
 
@@ -531,7 +530,7 @@ char moverpersonaje(char tecla, int &x, int &y) {
             if (tecla == 'A') dirX = -1;
             if (tecla == 'D') dirX = 1;
 
-            // no atraviesa enemigos
+            
             if (enemigoEn(jugadorX + dirX, jugadorY + dirY) == -1) {
                 int antX = jugadorX, antY = jugadorY;          // antes de mover
                 char c = moverpersonaje(tecla, jugadorX, jugadorY);

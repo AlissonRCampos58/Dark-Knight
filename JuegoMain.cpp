@@ -15,7 +15,7 @@ int main() {
     int sesion = iniciarSesion(usuarios, nUsuarios);
     if (sesion == -1) {
         limpiar();
-        cout << "Demasiados intentos. La ceniza te deja fuera."<<endl;
+        cout << "Demasiados intentos. La oscuridad te deja fuera..."<<endl;
         return 1;
     }
 
